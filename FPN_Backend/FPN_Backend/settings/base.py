@@ -22,9 +22,12 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 # BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
-# ENV_PATH = BASE_DIR / '.env'
+ENV_PATH = os.path.join(BASE_DIR, '.env')
 load_dotenv(ENV_PATH)
 
+# reset token expiration time
+DURATION = os.getenv('DURATION')
+SECRET = os.getenv('SECRET')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -33,8 +36,11 @@ load_dotenv(ENV_PATH)
 # Application definition
 
 INSTALLED_APPS = [
+    'users',
     'home',
     'search',
+    'api_utility',
+    'data_transformer',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
