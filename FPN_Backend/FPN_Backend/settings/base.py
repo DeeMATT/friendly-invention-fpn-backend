@@ -29,6 +29,7 @@ load_dotenv(ENV_PATH)
 DURATION = os.getenv('DURATION')
 ROOT_SECRET = os.getenv('ROOT_SECRET')
 SECRET_KEY = os.getenv('SECRET_KEY')
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
