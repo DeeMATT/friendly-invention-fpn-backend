@@ -6,7 +6,7 @@ info:
   description: FPN-Backend-API
   contact: {}
 
-host: api.finpro.net
+host: api.thefinpro.net
 basePath: /
 schemes:
 - https
