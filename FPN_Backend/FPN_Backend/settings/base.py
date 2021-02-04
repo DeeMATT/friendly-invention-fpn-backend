@@ -188,7 +188,7 @@ MEDIA_URL = '/media/'
 WAGTAIL_SITE_NAME = "FPN_Backend"
 
 # Swagger Render settings
-SWAGGER_YAML_FILENAME = '/docs/fpn-backend-api.yml'
+SWAGGER_YAML_FILENAME = '/fpn-backend-api.yml'
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
