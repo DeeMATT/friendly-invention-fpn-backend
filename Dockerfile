@@ -29,11 +29,15 @@ RUN apt-get update && \
 # Install the application server.
 RUN pip3 install daphne
 
+# Set this directory to be owned by the "wagtail" user.
+RUN chown wagtail:wagtail /opt/FPN_Backend
+
+# Use user "wagtail" to run the build commands below and the server itself.
+USER wagtail
+
 COPY . /opt/FPN_Backend
 
 WORKDIR /opt/FPN_Backend
-# Set this directory to be owned by the "wagtail" user.
-RUN chown wagtail:wagtail /opt/FPN_Backend
 
 # Install the project requirements.
 RUN pip3 install -r /opt/FPN_Backend/requirements.txt
@@ -44,9 +48,6 @@ WORKDIR /opt/FPN_Backend/FPN_Backend
 
 # # Copy the source code of the project into the container.
 # COPY --chown=wagtail:wagtail . .
-
-# Use user "wagtail" to run the build commands below and the server itself.
-USER wagtail
 
 # Collect static files.
 RUN python manage.py collectstatic --noinput --clear
