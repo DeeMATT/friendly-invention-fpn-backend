@@ -45,4 +45,4 @@ urlpatterns = urlpatterns + [
 ]
 
 # API Doc path
-urlpatterns += static('/docs/', document_root='docs')
+urlpatterns += static('/api_doc/', document_root='api_doc')
