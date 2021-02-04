@@ -27,7 +27,7 @@ load_dotenv(ENV_PATH)
 
 # reset token expiration time
 DURATION = os.getenv('DURATION')
-SECRET = os.getenv('SECRET')
+ROOT_SECRET = os.getenv('ROOT_SECRET')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'api_utility',
     'data_transformer',
     'errors',
+    'corsheaders',
+    'swagger_render',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
@@ -68,13 +70,14 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     # 'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'django.middleware.security.SecurityMiddleware',
 
     'wagtail.contrib.redirects.middleware.RedirectMiddleware',
 ]
@@ -100,6 +103,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'FPN_Backend.wsgi.application'
+ASGI_APPLICATION = 'FPN_Backend.asgi.application'
 
 
 # Database
@@ -177,15 +181,17 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
+SWAGGER_YAML_FILENAME = '/docs/dyneryte-api-doc.yml'
 
 # Wagtail settings
-
 WAGTAIL_SITE_NAME = "FPN_Backend"
+
+# Swagger Render settings
+SWAGGER_YAML_FILENAME = '/docs/fpn-backend-api.yml'
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
-BASE_URL = 'http://example.com'
+BASE_URL = 'http://thefinpro.net'
 
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
