@@ -37,12 +37,12 @@ def authenticateUser(email, password):
         return None
 
 
-def createUser(firstName, lastName, userName, email, phone, password):
+def createUser(firstName, lastName, username, email, phone, password):
     try:
         user = User(
             firstName=firstName,
             lastName=lastName,
-            userName=userName,
+            userName=username,
             email=email,
             phone=phone,
             password=make_password(password)
@@ -56,11 +56,11 @@ def createUser(firstName, lastName, userName, email, phone, password):
         return None
 
 
-def updateUser(user, firstName, lastName, userName, email, phone, password=None):
+def updateUser(user, firstName, lastName, username, email, phone, password=None):
     try:
         user.firstName = firstName
         user.lastName = lastName
-        user.userName = userName
+        user.userName = username
         user.email = email
         user.phone = phone
     
@@ -208,50 +208,41 @@ def getUserByAccessToken(accessToken):
 
 
 
-# def getUserById(userId):
-#     try:
-#         return User.objects.get(id=userId)
+def getUserById(userId):
+    try:
+        return User.objects.get(id=userId)
 
-#     except Exception as err:
-#         logger.error('getUserById@error')
-#         logger.error(err)
-#         return None
+    except Exception as err:
+        logger.error('getUserById@error')
+        logger.error(err)
+        return None
     
-# def getUserByEmail(email):
-#     try:
-#         return User.objects.get(email=email) 
+def getUserByEmail(email):
+    try:
+        return User.objects.get(email=email) 
     
-#     except Exception as err:
-#         logger.error('getUserByEmail@error')
-#         logger.error(err)
-#         return None
+    except Exception as err:
+        logger.error('getUserByEmail@error')
+        logger.error(err)
+        return None
 
-# def getUserByEmailOnly(email):
-#     try:
-#         return User.objects.get(email=email)
+def getUserByUsername(username):   
+    try:
+        return User.objects.get(username=username)
     
-#     except Exception as err:
-#         logger.error('getUserByEmailOnly@error')
-#         logger.error(err)
-#         return None
+    except Exception as err:
+        logger.error('getUserByUserName@error')
+        logger.error(err)
+        return None
 
-# def getUserByUserName(userName):   
-#     try:
-#         return User.objects.get(userName=userName)
-    
-#     except Exception as err:
-#         logger.error('getUserByUserName@error')
-#         logger.error(err)
-#         return None
+def getUserByPhone(phone):
+    try:
+        return User.objects.get(phone=phone)
 
-# def getUserByPhone(phone):
-#     try:
-#         return User.objects.get(phone=phone)
-
-#     except Exception as err:
-#         logger.error('getUserByPhone@error')
-#         logger.error(err)
-#         return None
+    except Exception as err:
+        logger.error('getUserByPhone@error')
+        logger.error(err)
+        return None
 
 # def listAllUsers():
 #     try:
