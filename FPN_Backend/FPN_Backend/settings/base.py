@@ -169,9 +169,9 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
 
-# STATICFILES_DIRS = [
-#     os.path.join(PROJECT_DIR, 'static')
-# ]
+STATICFILES_DIRS = [
+    os.path.join(PROJECT_DIR, 'static')
+]
 
 # ManifestStaticFilesStorage is recommended in production, to prevent outdated
 # JavaScript / CSS assets being served from cache (e.g. after a Wagtail upgrade).
@@ -188,7 +188,7 @@ MEDIA_URL = '/media/'
 WAGTAIL_SITE_NAME = "FPN_Backend"
 
 # Swagger Render settings
-SWAGGER_YAML_FILENAME = '/docs/fpn-backend-api.yml'
+SWAGGER_YAML_FILENAME = '/api_doc/fpn-backend-api.yml'
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
