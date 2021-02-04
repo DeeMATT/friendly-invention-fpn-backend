@@ -19,7 +19,7 @@ def transformUser(user):
         "id": user.id,
         "firstName": user.firstName,
         "lastName": user.lastName,
-        "userName": user.userName,
+        "username": user.username,
         "email": user.email,
         "phone": user.phone,
         "lastActiveOn": user.lastActiveOn, 
