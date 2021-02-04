@@ -48,7 +48,7 @@ WORKDIR /opt/FPN_Backend/FPN_Backend
 
 # # Copy the source code of the project into the container.
 # COPY --chown=wagtail:wagtail . .
-RUN echo $(pwd)
+RUN echo $(ls -a)
 # Collect static files.
 RUN python manage.py collectstatic --noinput --clear
 
