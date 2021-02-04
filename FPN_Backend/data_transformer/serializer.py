@@ -8,8 +8,9 @@ def generateLoginResponse(user, accessToken):
         "email": user.email,
         "phone": user.phone,
         "username": user.username,
+        "image": user.image if user.image else "",
         "accessToken": accessToken.accessToken,
-        "lastActive": toUiReadableDateFormat(user.lastActiveOn)
+        "lastActiveOn": toUiReadableDateFormat(user.lastActiveOn)
     }
 
     return user
@@ -22,6 +23,7 @@ def transformUser(user):
         "username": user.username,
         "email": user.email,
         "phone": user.phone,
+        "image": user.image if user.image else "",
         "lastActiveOn": user.lastActiveOn, 
         "createdAt": toUiReadableDateFormat(user.createdAt),
     }
