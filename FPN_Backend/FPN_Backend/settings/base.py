@@ -25,7 +25,7 @@ BASE_DIR = os.path.dirname(PROJECT_DIR)
 # ENV_PATH = os.path.join(BASE_DIR, '.env')
 print("bajanijowdokd", BASE_DIR)
 print("gbeduh39212e", PROJECT_DIR)
-return
+
 ENV_PATH = BASE_DIR / '.env'
 load_dotenv(ENV_PATH)
 
