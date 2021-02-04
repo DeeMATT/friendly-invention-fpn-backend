@@ -11,9 +11,10 @@ from api_utility.validators import (
     validateThatStringIsEmptyAndClean, validateThatStringIsEmpty
 )
 from .utils import (
-    getUserByEmail, getUserById, getUserByPhone, getUserByUsername, createUser
+    getUserByEmail, getUserById, getUserByPhone, getUserByUsername, createUser,
+    authenticateUser, generateUserAccessToken
 )
-from data_transformer.serializer import transformUser
+from data_transformer.serializer import transformUser, generateLoginResponse
 import json
 import logging
 # Get an instance of a logger
@@ -60,7 +61,7 @@ def provisionUser(request):
     user = createUser(
                 firstName=body['firstName'], 
                 lastName=body['lastName'], 
-                username=body['userName'], 
+                username=body['username'], 
                 email=body['email'], 
                 phone=body['phone'], 
                 password=body['password']
@@ -68,3 +69,35 @@ def provisionUser(request):
     
     if user:
         return createdResponse(message="successfully created", body=transformUser(user))
+
+
+def login(request):
+    # check for root secret in header
+    secret = request.headers.get('Secret')
+    if not secret == settings.SECRET:
+        return unAuthorizedResponse(getError(ErrorCodes.UNAUTHORIZED_REQUEST, "Invalid Secret Key"))
+
+    body = json.loads(request.body)
+    # check if required fields are present in request payload
+    missingKeys = validateKeys(payload=body, requiredKeys=['email', 'password'])
+    if missingKeys:
+        return badRequestResponse(getError(ErrorCodes.MISSING_FIELDS, f"The following key(s) are missing in the request payload: {missingKeys}"))
+
+    email = body['email']
+    password = body['password']
+
+    # check if email is not empty
+    if not validateThatStringIsEmpty(email):
+        return badRequestResponse(getError(ErrorCodes.GENERIC_ERROR, message="Email field cannot be empty"))
+
+    # check if password is not empty
+    if not validateThatStringIsEmpty(password):
+        return badRequestResponse(getError(ErrorCodes.GENERIC_ERROR, message="Password field cannot be empty"))
+
+    user = authenticateUser(email, password)
+    if user is None:
+        return badRequestResponse(getError(ErrorCodes.GENERIC_ERROR, message="Invalid Credentials"))
+    
+    userAccessToken = generateUserAccessToken(user)
+
+    return successResponse(message="successfully authenticated", body= generateLoginResponse(user, userAccessToken))
