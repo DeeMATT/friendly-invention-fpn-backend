@@ -24,7 +24,7 @@ logger = logging.getLogger(__name__)
 def provisionUser(request):
     # check for root secret in header
     secret = request.headers.get('Secret')
-    if not secret == settings.SECRET:
+    if not secret == settings.ROOT_SECRET:
         return unAuthorizedResponse(getError(ErrorCodes.UNAUTHORIZED_REQUEST, "Invalid Secret Key"))
 
     ## decode the request body
@@ -74,7 +74,7 @@ def provisionUser(request):
 def login(request):
     # check for root secret in header
     secret = request.headers.get('Secret')
-    if not secret == settings.SECRET:
+    if not secret == settings.ROOT_SECRET:
         return unAuthorizedResponse(getError(ErrorCodes.UNAUTHORIZED_REQUEST, "Invalid Secret Key"))
 
     body = json.loads(request.body)
