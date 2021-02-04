@@ -187,7 +187,7 @@ components:
     AuthenticatePOSTBody:
       type: object
       properties:
-        userIdentity:
+        email:
           type: string
         password:
           type: string
