@@ -1,8 +1,8 @@
 # Use an official Python runtime based on Debian 10 "buster" as a parent image.
 FROM python:3.8
 
-# Add user that will be used in the container.
-RUN useradd wagtail
+# # Add user that will be used in the container.
+# RUN useradd wagtail
 
 # Port used by this container to serve HTTP.
 EXPOSE 9020
@@ -32,10 +32,10 @@ RUN pip3 install daphne
 WORKDIR /opt/FPN_Backend
 
 # Set this directory to be owned by the "wagtail" user.
-RUN chown wagtail:wagtail /opt/FPN_Backend
+# RUN chown wagtail:wagtail /opt/FPN_Backend
 
 # Use user "wagtail" to run the build commands below and the server itself.
-USER wagtail
+# USER wagtail
 
 COPY . /opt/FPN_Backend
 
