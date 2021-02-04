@@ -43,7 +43,8 @@ RUN pip3 install -r /opt/FPN_Backend/requirements.txt
 
 RUN pip3 install psycopg2
 
-WORKDIR /opt/FPN_Backend/FPN_Backend
+# WORKDIR /opt/FPN_Backend/FPN_Backend
+
 
 # # Copy the source code of the project into the container.
 # COPY --chown=wagtail:wagtail . .
