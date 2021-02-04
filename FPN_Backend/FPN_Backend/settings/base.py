@@ -17,12 +17,13 @@ from dotenv import load_dotenv
 
 from pathlib import Path
 
-PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-BASE_DIR = os.path.dirname(PROJECT_DIR)
+# PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# BASE_DIR = os.path.dirname(PROJECT_DIR)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-# BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
-ENV_PATH = os.path.join(BASE_DIR, '.env')
+BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
+# ENV_PATH = os.path.join(BASE_DIR, '.env')
+ENV_PATH = BASE_DIR / '.env'
 load_dotenv(ENV_PATH)
 
 # reset token expiration time
@@ -89,9 +90,7 @@ ROOT_URLCONF = 'FPN_Backend.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [
-            os.path.join(PROJECT_DIR, 'templates'),
-        ],
+        'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -169,9 +168,9 @@ STATICFILES_FINDERS = [
     'django.contrib.staticfiles.finders.AppDirectoriesFinder',
 ]
 
-STATICFILES_DIRS = [
-    os.path.join(PROJECT_DIR, 'static')
-]
+# STATICFILES_DIRS = [
+#     os.path.join(PROJECT_DIR, 'static')
+# ]
 
 # ManifestStaticFilesStorage is recommended in production, to prevent outdated
 # JavaScript / CSS assets being served from cache (e.g. after a Wagtail upgrade).
@@ -179,18 +178,18 @@ STATICFILES_DIRS = [
 STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
 
 # STATIC_ROOT = os.path.join(BASE_DIR, 'static')
-STATIC_ROOT = "/var/www/FPN_Backend/static/"
+STATIC_ROOT = BASE_DIR / 'static'
 STATIC_URL = '/static/'
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
-MEDIA_ROOT = "/var/www/FPN_Backend/media/"
+STATIC_ROOT = BASE_DIR / 'media'
 MEDIA_URL = '/media/'
 
 # Wagtail settings
 WAGTAIL_SITE_NAME = "FPN_Backend"
 
 # Swagger Render settings
-SWAGGER_YAML_FILENAME = '/api_doc/fpn-backend-api.yml'
+SWAGGER_YAML_FILENAME = '/docs/fpn-backend-api.yml'
 
 # Base URL to use when referring to full URLs within the Wagtail admin backend -
 # e.g. in notification emails. Don't include '/admin' or a trailing slash
