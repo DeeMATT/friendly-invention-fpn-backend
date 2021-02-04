@@ -29,6 +29,8 @@ RUN apt-get update && \
 # Install the application server.
 RUN pip3 install daphne
 
+WORKDIR /opt/FPN_Backend
+
 # Set this directory to be owned by the "wagtail" user.
 RUN chown wagtail:wagtail /opt/FPN_Backend
 
@@ -36,8 +38,6 @@ RUN chown wagtail:wagtail /opt/FPN_Backend
 USER wagtail
 
 COPY . /opt/FPN_Backend
-
-WORKDIR /opt/FPN_Backend
 
 # Install the project requirements.
 RUN pip3 install -r /opt/FPN_Backend/requirements.txt
