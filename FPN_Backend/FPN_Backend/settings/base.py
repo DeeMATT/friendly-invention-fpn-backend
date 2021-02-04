@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'search',
     'api_utility',
     'data_transformer',
+    'errors',
 
     'wagtail.contrib.forms',
     'wagtail.contrib.redirects',
