@@ -28,6 +28,7 @@ load_dotenv(ENV_PATH)
 # reset token expiration time
 DURATION = os.getenv('DURATION')
 ROOT_SECRET = os.getenv('ROOT_SECRET')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
