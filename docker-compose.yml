@@ -1,0 +1,9 @@
+version: '3'
+services:
+  api: 
+    build: .
+    image: &img fpn-backend-api:latest
+    container_name: fpn-api
+    command: ["daphne", "-b", "0.0.0.0", "-p", "9020", "FPN_Backend.asgi:application"]
+    ports:
+      - 9020:9020 
