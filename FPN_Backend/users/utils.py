@@ -42,7 +42,7 @@ def createUser(firstName, lastName, username, email, phone, password):
         user = User(
             firstName=firstName,
             lastName=lastName,
-            userName=username,
+            username=username,
             email=email,
             phone=phone,
             password=make_password(password)
@@ -60,7 +60,7 @@ def updateUser(user, firstName, lastName, username, email, phone, password=None)
     try:
         user.firstName = firstName
         user.lastName = lastName
-        user.userName = username
+        user.username = username
         user.email = email
         user.phone = phone
     
