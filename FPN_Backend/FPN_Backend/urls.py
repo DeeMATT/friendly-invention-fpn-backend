@@ -25,10 +25,6 @@ urlpatterns = [
 	path('doc', SwaggerUIView.as_view()),
 ]
 
-# API Doc path
-# urlpatterns += static('/docs/', document_root='docs')
-urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
-
 
 # if settings.DEBUG:
 #     from django.contrib.staticfiles.urls import staticfiles_urlpatterns
@@ -47,4 +43,7 @@ urlpatterns = urlpatterns + [
     # of your site, rather than the site root:
     #    path("pages/", include(wagtail_urls)),
 ]
+
+# API Doc path
+urlpatterns += static('/docs/', document_root='docs')
 
