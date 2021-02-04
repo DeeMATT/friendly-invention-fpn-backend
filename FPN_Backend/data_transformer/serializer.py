@@ -7,8 +7,8 @@ def generateLoginResponse(user, accessToken):
         "lastName": user.lastName,
         "email": user.email,
         "phone": user.phone,
-        "userName": user.userName,
-        "accessToken": accessToken,
+        "username": user.username,
+        "accessToken": accessToken.accessToken,
         "lastActive": toUiReadableDateFormat(user.lastActiveOn)
     }
 
