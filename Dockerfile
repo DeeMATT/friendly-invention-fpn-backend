@@ -50,7 +50,7 @@ WORKDIR /opt/FPN_Backend/FPN_Backend
 # COPY --chown=wagtail:wagtail . .
 RUN echo $(ls -a)
 # Collect static files.
-RUN python manage.py collectstatic --noinput --clear
+RUN python manage.py collectstatic
 
 ENV DB_NAME="defaultdb"
 ENV DB_USER="doadmin"
