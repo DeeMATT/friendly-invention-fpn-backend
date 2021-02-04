@@ -23,11 +23,12 @@ RUN apt-get update && \
         libjpeg62-turbo-dev \
         zlib1g-dev \
         libwebp-dev && \
-        rm -rf /var/lib/apt/lists/* && \
-    pip3 install daphne
+        rm -rf /var/lib/apt/lists/*
 
 # Install the application server.
 RUN pip3 install daphne
+
+COPY . /opt/FPN_Backend
 
 WORKDIR /opt/FPN_Backend
 
@@ -36,8 +37,6 @@ WORKDIR /opt/FPN_Backend
 
 # Use user "wagtail" to run the build commands below and the server itself.
 # USER wagtail
-
-COPY . /opt/FPN_Backend
 
 # Install the project requirements.
 RUN pip3 install -r /opt/FPN_Backend/requirements.txt
