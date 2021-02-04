@@ -1,0 +1,324 @@
+swagger: "2.0"
+
+info:
+  version: '1.0'
+  title: FPN-Backend-API
+  description: FPN-Backend-API
+  contact: {}
+
+host: api.finpro.net
+basePath: /
+schemes:
+- https
+consumes:
+- application/json
+produces:
+- application/json
+
+
+paths:
+    /login:
+      post:
+        summary: User Login
+        tags:
+          - Authentication
+        produces:
+        - application/json
+        parameters:
+        - in: header
+          name: Content-Type 
+          required: true
+          schema:
+            type: string
+            example: application/json
+        - in: header
+          name: Accept
+          required: false
+          schema:
+            type: string
+            example: application/json
+        - in: header
+          name: Secret
+          required: true
+          description: The root secret
+          schema:
+            type: string
+            example: 32b3cc66ec1e468d3263e5fc881b8ff4a1dc03228111dc20ee76e48b79405fde88bd081920cb476ac4283fa37a4a5ebdf28339b0858ccf9e056fcd25d23cfcb34ac3c7109cfe067b3e2d1572b4251e23a806919d4196a7c50eb3727c1ebd94245adca342a03545b2a15247eccfc41bffd5ed14d9d18a8cb419066307e2f8c9db
+        - in: body
+          name: Body
+          required: true
+          description: Login
+          schema:
+            $ref: '#/components/requestBody/AuthenticatePOSTBody'
+
+        responses:
+          '200':
+            description: OK
+            schema:
+              $ref: '#/components/responses/CustomerLoginResponse'
+
+          '400':
+            description: Bad Request
+            schema:
+              $ref: '#/components/responses/400_Bad_Request'
+
+
+    /users/provision:
+      post:
+        summary: User Registration (Sign Up)
+        tags:
+        - Users
+        produces:
+        - application/json
+        security:
+          - ApiKey: [] 
+        parameters:
+        - name: Content-Type             
+          in: header
+          required: true
+          schema:
+            type: string
+            example: application/json
+        - name: Accept
+          in: header
+          required: false
+          schema:
+            type: string
+            example: application/json
+        - name: Secret
+          in: header
+          required: true
+          description: The root secret
+          schema:
+            type: string
+            example: xWBqLeTk_rzxBQ8mOC9L5ool4gdaaHu_5gSm2t3--38gebr83eu389r93-ajey83e5rfsvdh2ei7-dye
+        - name: Body
+          in: body
+          required: true
+          description: Sign Up
+          schema:
+            $ref: '#/components/requestBody/UserSetupBody'
+
+
+        responses:
+          '201':
+            description: User Created
+            schema:
+              type: object
+              properties:
+                data:
+                  type: object
+                  properties:
+                    data:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        firstName:
+                          type: string
+                        lastName:
+                          type: string
+                        username:
+                          type: string
+                        email:
+                          type: string
+                        phone:
+                          type: integer
+                        # address:
+                        #   type: string
+                        image:
+                          type: string
+                        isActive:
+                          type: boolean
+                        lastActiveOn:
+                          type: string
+                          format: date-time
+                        createdAt:
+                          type: string
+                          format: date-time
+
+                message:
+                  type: string
+                  example: successfully created user
+
+          '400':
+            description: Bad Request
+            schema:
+              $ref: '#/components/responses/400_Bad_Request'
+
+          '401':
+            description: Unauthorized
+            schema:
+              $ref: '#/components/responses/401_Unauthorized'
+          
+          '409':
+            description: Conflict
+            schema:
+              $ref: '#/components/responses/409_Conflict'
+          
+          '500':
+            description: Internal Server Error
+            schema:
+              $ref: '#/components/responses/500_Internal_Server_Error' 
+
+    
+
+components:
+  securitySchemes:
+    ApiKey:        # arbitrary name for the security scheme
+      type: apiKey
+      in: header 
+      name: Access-Token
+
+  pagination:
+    type: object
+    properties:
+      totalPages:
+        type: integer
+        description: Total number of pages
+      limit:
+        type: integer
+        description: Number of items per page (pageBy)
+      currentPage:
+        type: integer
+
+  requestBody:
+
+    AuthenticatePOSTBody:
+      type: object
+      properties:
+        userIdentity:
+          type: string
+        password:
+          type: string
+
+
+    UserSetupBody:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        password:
+          type: string
+
+    UserPUTBody:
+      type: object
+      properties:
+        firstName:
+          type: string
+        lastName:
+          type: string
+        username:
+          type: string
+        email:
+          type: string
+        phone:
+          type: string
+        address:
+          type: string
+        image:
+          type: string
+
+  responses:
+    CustomerLoginResponse:
+      type: object
+      properties:
+        data:
+          type: object
+          properties:
+            id:
+              type: string
+            firstName:
+              type: string
+            lastName:
+              type: string
+            username:
+              type: string
+            email:
+              type: string
+            phone:
+              type: string
+            address:
+              type: string
+            image:
+              type: string
+            accessToken:
+              type: string
+        message:
+          type: string
+          example: successfully authenticated
+
+    400_Bad_Request:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+        data:
+          type: object
+        message:
+          type: string
+    
+    401_Unauthorized:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+        data:
+          type: object
+        message:
+          type: string
+
+    403_Forbidden:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+        data:
+          type: object
+        message:
+          type: string
+
+    404_Not_Found:
+      type: object
+      properties:
+        errorCode:
+          type: integer
+        data:
+          type: object
+        message:
+          type: string
+
+    409_Conflict:      
+      type: object
+      properties:
+        type: integer
+        data:
+          type: object
+        message:
+          type: string
+
+    500_Internal_Server_Error:
+      type: object
+      properties:
+        type: integer
+        data:
+          type: object
+        message:
+          type: string
+
+
+security:
+    - ApiKey: []
+
+tags:
+  - name: Authentication
+  - name: Users
+  # - name: TokenReset
