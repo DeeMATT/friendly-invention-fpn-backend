@@ -13,7 +13,7 @@ def stringIsNumber(value):
 
 def stringIsInteger(value):
     try:
-        convertedValue = int(value)
+        int(value)
         return True
     except ValueError:
         return False
@@ -21,7 +21,7 @@ def stringIsInteger(value):
 
 def stringIsFloat(value):
     try:
-        convertedValue = float(value)
+        float(value)
         return True
     except ValueError:
         return False
@@ -29,7 +29,7 @@ def stringIsFloat(value):
 
 def stringIsBoolean(value):
     try:
-        convertedValue = bool(value)
+        bool(value)
         return True
     except ValueError:
         return False

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.conf import settings
 from errors.views import getError, ErrorCodes
 from api_utility.views import (
-    badRequestResponse, internalServerError, successResponse, createdResponse,
+    badRequestResponse, internalServerErrorResponse, successResponse, createdResponse,
     unAuthenticatedResponse, unAuthorizedResponse, resourceConflictResponse, 
     resourceNotFoundResponse, paginatedResponse, getUserIpAddress
 )
@@ -13,7 +13,7 @@ from api_utility.validators import (
 from .utils import (
     getUserByEmail, getUserById, getUserByPhone, getUserByUsername, createUser
 )
-from data_transformer.serializers import transformUser
+from data_transformer.serializer import transformUser
 import json
 import logging
 # Get an instance of a logger
@@ -36,13 +36,13 @@ def provisionUser(request):
 
     # validate if the email is in the correct format
     if not validateEmailFormat(body['email']):
-        return badRequestResponse(getError(ErrorCodes.GENERIC_ERROR, message="Email format is invalid")
+        return badRequestResponse(getError(ErrorCodes.GENERIC_ERROR, message="Email format is invalid"))
     
     if not validateThatStringIsEmptyAndClean(body['firstName']):
-        return badRequestResponse(getError(ErrorCodes.GENERIC_ERROR, message="First name can not contain special characters")
+        return badRequestResponse(getError(ErrorCodes.GENERIC_ERROR, message="First name can not contain special characters"))
     
     if not validateThatStringIsEmptyAndClean(value=body['lastName']):
-        return badRequestResponse(getError(ErrorCodes.GENERIC_ERROR, message="Last name can not contain special characters")
+        return badRequestResponse(getError(ErrorCodes.GENERIC_ERROR, message="Last name can not contain special characters"))
 
     # check if user with that email exists
     if getUserByEmail(body['email']):
