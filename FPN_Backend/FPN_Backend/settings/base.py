@@ -183,7 +183,6 @@ STATIC_URL = '/static/'
 
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-SWAGGER_YAML_FILENAME = '/docs/dyneryte-api-doc.yml'
 
 # Wagtail settings
 WAGTAIL_SITE_NAME = "FPN_Backend"

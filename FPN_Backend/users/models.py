@@ -8,6 +8,7 @@ class User(models.Model):
     username = models.TextField("user_name")
     email = models.EmailField(max_length=254)
     phone = models.TextField()
+    image = models.TextField(null=True)
     password = models.TextField()
     isActive = models.BooleanField("is_active", default=True)
     isDeleted = models.BooleanField("is_deleted", default=False)
